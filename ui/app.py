@@ -11,6 +11,7 @@ import tempfile
 from dotenv import load_dotenv
 from groq import Groq
 from streamlit_mic_recorder import mic_recorder
+API_URL = "https://mind-companion-api.onrender.com"
 
 # ==========================================
 # 환경 변수
@@ -56,7 +57,7 @@ tab1, tab2, tab3 = st.tabs(
 try:
 
     response = requests.get(
-        "http://127.0.0.1:8000/emotion-calendar"
+        f"{API_URL}/emotion-calendar"
     )
 
     data = response.json()
@@ -135,7 +136,7 @@ with tab1:
 
         response = requests.get(
 
-            "http://127.0.0.1:8000/chat",
+               f"{API_URL}/emotion-chat",
 
             params={
                 "message": transcription.text
@@ -163,7 +164,7 @@ with tab1:
 
             response = requests.get(
 
-                "http://127.0.0.1:8000/chat",
+                   f"{API_URL}/emotion-chat",
 
                 params={
                     "message": user_input
@@ -433,7 +434,7 @@ with tab3:
     try:
 
         report_response = requests.get(
-            "http://127.0.0.1:8000/emotion-report"
+               f"{API_URL}/emotion-report"
         )
 
         report_data = report_response.json()
@@ -464,7 +465,7 @@ with tab3:
         try:
 
             requests.get(
-                "http://127.0.0.1:8000/pdf-report"
+                f"{API_URL}/emotion-pdf-report"
             )
 
             st.success(
