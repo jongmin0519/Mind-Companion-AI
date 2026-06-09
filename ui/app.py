@@ -142,8 +142,7 @@ with tab1:
                 "message": transcription.text
             }
         )
-        st.write("상태코드:", response.status_code)
-        st.write("응답내용:", response.text)
+       
 
         chat_data = response.json()
 
