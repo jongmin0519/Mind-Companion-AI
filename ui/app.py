@@ -136,7 +136,7 @@ with tab1:
 
         response = requests.get(
 
-               f"{API_URL}/emotion-chat",
+               f"{API_URL}/chat",
 
             params={
                 "message": transcription.text
@@ -164,7 +164,7 @@ with tab1:
 
             response = requests.get(
 
-                   f"{API_URL}/emotion-chat",
+                   f"{API_URL}/chat",
 
                 params={
                     "message": user_input
