@@ -214,15 +214,9 @@ def chat(message: str):
 
     try:
 
-        emotion_result = {
-            "happy": 50,
-            "stable": 50,
-            "lonely": 0,
-            "anxiety": 0,
-            "depressed": 0
-        }
+        emotion_result = analyze_emotion(message)
 
-        ai_response = "안녕하세요"
+        ai_response = generate_response(message)
 
         save_emotion_log(
             user_message=message,
@@ -245,7 +239,6 @@ def chat(message: str):
         return {
             "error": str(e)
         }
-
 # ==========================================
 # 감정 캘린더 API
 # ==========================================
