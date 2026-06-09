@@ -214,33 +214,29 @@ def chat(message: str):
 
     try:
 
-        emotion_result = analyze_emotion(message)
+        emotion_result = {
+            "happy": 50,
+            "stable": 50,
+            "lonely": 0,
+            "anxiety": 0,
+            "depressed": 0
+        }
 
-        ai_response = generate_response(message)
+        ai_response = "안녕하세요"
 
         save_emotion_log(
-
             user_message=message,
-
             happy=emotion_result["happy"],
-
             stable=emotion_result["stable"],
-
             lonely=emotion_result["lonely"],
-
             anxiety=emotion_result["anxiety"],
-
             depressed=emotion_result["depressed"],
-
             ai_response=ai_response
         )
 
         return {
-
             "user_message": message,
-
             "emotion_analysis": emotion_result,
-
             "ai_response": ai_response
         }
 
