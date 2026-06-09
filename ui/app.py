@@ -11,7 +11,7 @@ import tempfile
 from dotenv import load_dotenv
 from groq import Groq
 from streamlit_mic_recorder import mic_recorder
-API_URL = "https://mind-companion-api.onrender.com"
+API_URL = "https://mind-companion-ai.onrender.com"
 
 # ==========================================
 # 환경 변수
@@ -144,7 +144,7 @@ with tab1:
         )
         st.write("상태코드:", response.status_code)
         st.write("응답내용:", response.text)
-        
+
         chat_data = response.json()
 
         st.write("### 🤖 AI 응답")
