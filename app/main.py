@@ -212,39 +212,43 @@ def root():
 @app.get("/chat")
 def chat(message: str):
 
-    emotion_result = analyze_emotion(message)
+    try:
 
-    ai_response = generate_response(message)
+        emotion_result = analyze_emotion(message)
 
-    if message.strip():
-        speak(ai_response)
+        ai_response = generate_response(message)
 
-    save_emotion_log(
+        save_emotion_log(
 
-        user_message=message,
+            user_message=message,
 
-        happy=emotion_result["happy"],
+            happy=emotion_result["happy"],
 
-        stable=emotion_result["stable"],
+            stable=emotion_result["stable"],
 
-        lonely=emotion_result["lonely"],
+            lonely=emotion_result["lonely"],
 
-        anxiety=emotion_result["anxiety"],
+            anxiety=emotion_result["anxiety"],
 
-        depressed=emotion_result["depressed"],
+            depressed=emotion_result["depressed"],
 
-        ai_response=ai_response
-    )
+            ai_response=ai_response
+        )
 
-    return {
+        return {
 
-        "user_message": message,
+            "user_message": message,
 
-        "emotion_analysis": emotion_result,
+            "emotion_analysis": emotion_result,
 
-        "ai_response": ai_response
-    }
+            "ai_response": ai_response
+        }
 
+    except Exception as e:
+
+        return {
+            "error": str(e)
+        }
 
 # ==========================================
 # 감정 캘린더 API
