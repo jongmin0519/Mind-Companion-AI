@@ -1,7 +1,7 @@
 # ==========================================
-# MySQL 연결 라이브러리
+# SQLite
 # ==========================================
-import mysql.connector
+import sqlite3
 
 
 # ==========================================
@@ -9,137 +9,196 @@ import mysql.connector
 # ==========================================
 def get_connection():
 
-    return mysql.connector.connect(
-
-        host="localhost",
-
-        user="root",
-
-        password="1234",
-
-        database="mind_companion_ai"
+    conn = sqlite3.connect(
+        "mind_companion_ai.db",
+        check_same_thread=False
     )
+
+    conn.row_factory = sqlite3.Row
+
+    return conn
+
+
+# ==========================================
+# 테이블 생성
+# ==========================================
+def create_tables():
+
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS emotion_logs (
+
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+            user_message TEXT,
+
+            happy INTEGER,
+
+            stable INTEGER,
+
+            lonely INTEGER,
+
+            anxiety INTEGER,
+
+            depressed INTEGER,
+
+            ai_response TEXT,
+
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
+    conn.commit()
+
+    conn.close()
 
 
 # ==========================================
 # 감정 저장
 # ==========================================
 def save_emotion_log(
+
     user_message,
+
     happy,
+
     stable,
+
     lonely,
+
     anxiety,
+
     depressed,
+
     ai_response
+
 ):
 
-    connection = get_connection()
+    conn = get_connection()
 
-    cursor = connection.cursor()
+    cursor = conn.cursor()
 
-    query = """
-    INSERT INTO emotion_logs
-    (
+    cursor.execute("""
+
+        INSERT INTO emotion_logs (
+
+            user_message,
+
+            happy,
+
+            stable,
+
+            lonely,
+
+            anxiety,
+
+            depressed,
+
+            ai_response
+
+        )
+
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+
+    """, (
+
         user_message,
+
         happy,
+
         stable,
+
         lonely,
+
         anxiety,
+
         depressed,
+
         ai_response
-    )
-    VALUES
-    (
-        %s,%s,%s,%s,%s,%s,%s
-    )
-    """
 
-    values = (
-        user_message,
-        happy,
-        stable,
-        lonely,
-        anxiety,
-        depressed,
-        ai_response
-    )
+    ))
 
-    cursor.execute(query, values)
+    conn.commit()
 
-    connection.commit()
-
-    cursor.close()
-    connection.close()
+    conn.close()
 
 
 # ==========================================
-# 감정 캘린더 조회
+# 감정 캘린더
 # ==========================================
 def get_emotion_calendar():
 
-    connection = get_connection()
+    conn = get_connection()
 
-    cursor = connection.cursor(dictionary=True)
+    cursor = conn.cursor()
 
-    query = """
-    SELECT
+    cursor.execute("""
 
-        DATE(created_at) AS date,
+        SELECT
 
-        happy,
-        stable,
-        lonely,
-        anxiety,
-        depressed
+            DATE(created_at) as date,
 
-    FROM emotion_logs
+            happy,
 
-    ORDER BY created_at DESC
-    """
+            stable,
 
-    cursor.execute(query)
+            lonely,
 
-    result = cursor.fetchall()
+            anxiety,
 
-    cursor.close()
-    connection.close()
+            depressed
 
-    return result
+        FROM emotion_logs
+
+        ORDER BY created_at ASC
+
+    """)
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return [dict(row) for row in rows]
 
 
 # ==========================================
-# 최근 감정 데이터 조회
+# 최근 감정 조회
 # ==========================================
 def get_recent_emotions():
 
-    connection = get_connection()
+    conn = get_connection()
 
-    cursor = connection.cursor(dictionary=True)
+    cursor = conn.cursor()
 
-    query = """
-    SELECT
+    cursor.execute("""
 
-        DATE(created_at) AS date,
+        SELECT
 
-        happy,
-        stable,
-        lonely,
-        anxiety,
-        depressed
+            DATE(created_at) as date,
 
-    FROM emotion_logs
+            happy,
 
-    ORDER BY created_at DESC
+            stable,
 
-    LIMIT 7
-    """
+            lonely,
 
-    cursor.execute(query)
+            anxiety,
 
-    result = cursor.fetchall()
+            depressed
 
-    cursor.close()
-    connection.close()
+        FROM emotion_logs
 
-    return result
+        ORDER BY created_at DESC
+
+        LIMIT 10
+
+    """)
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return [dict(row) for row in rows]

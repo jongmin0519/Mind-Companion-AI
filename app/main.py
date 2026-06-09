@@ -29,6 +29,11 @@ from app.database import (
 )
 
 from app.pdf_report import create_pdf_report
+from app.database import save_emotion_log
+from app.tts import speak
+from app.database import create_tables
+
+create_tables()
 
 # ==========================================
 # .env 읽기
@@ -49,6 +54,9 @@ client = Groq(api_key=api_key)
 # FastAPI
 # ==========================================
 app = FastAPI()
+from app.database import create_tables
+
+create_tables()
 
 
 # ==========================================
@@ -207,6 +215,9 @@ def chat(message: str):
     emotion_result = analyze_emotion(message)
 
     ai_response = generate_response(message)
+
+    if message.strip():
+        speak(ai_response)
 
     save_emotion_log(
 
