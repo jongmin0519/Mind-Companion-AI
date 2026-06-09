@@ -30,7 +30,7 @@ from app.database import (
 
 from app.pdf_report import create_pdf_report
 from app.database import save_emotion_log
-from app.tts import speak
+#from app.tts import speak
 from app.database import create_tables
 
 create_tables()
