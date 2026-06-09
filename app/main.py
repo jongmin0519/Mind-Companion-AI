@@ -236,9 +236,12 @@ def chat(message: str):
 
     except Exception as e:
 
+        import traceback
+
         return {
-            "error": str(e)
-        }
+            "error": str(e),
+            "traceback": traceback.format_exc()
+    }
 # ==========================================
 # 감정 캘린더 API
 # ==========================================
