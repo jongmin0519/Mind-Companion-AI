@@ -97,7 +97,7 @@ else:
 with tab1:
 
     st.subheader("💬 AI 말벗")
-    st.text_input(
+    st.text(
         "오늘 어떤 하루를 보내셨나요?"
     )
 
