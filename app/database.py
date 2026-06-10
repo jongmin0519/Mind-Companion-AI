@@ -139,7 +139,7 @@ def get_emotion_calendar():
 
         SELECT
 
-            DATE(created_at) as date,
+            DATE(datetime(created_at, '+9 hours')) as date,
 
             happy,
 
@@ -177,7 +177,7 @@ def get_recent_emotions():
 
         SELECT
 
-            DATE(created_at) as date,
+            DATE(datetime(created_at, '+9 hours')) as date,
 
             happy,
 
