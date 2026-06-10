@@ -97,6 +97,9 @@ else:
 with tab1:
 
     st.subheader("💬 AI 말벗")
+    st.text_input(
+        "오늘 어떤 하루를 보내셨나요?"
+    )
 
     audio = mic_recorder(
 
@@ -169,60 +172,13 @@ with tab1:
             height=0
     )
                 
-    user_input = st.text_input(
-        "오늘 어떤 하루를 보내셨나요?"
-    )
+   
 
-    if st.button(
-        "전송",
-        key="chat_send"
-    ):  
-
-        if user_input:
-
-            response = requests.get(
-
-                   f"{API_URL}/chat",
-
-                params={
-                    "message": user_input
-                }
-            )
-
-            chat_data = response.json()
-
-           
-
-            st.write("### 🤖 AI 응답")
-
-            st.success(
-                chat_data["ai_response"]
-            )
-
-            tts_text = chat_data["ai_response"]
-            
-            components.html(
-                f"""
-                <script>
-                var msg = new SpeechSynthesisUtterance("{tts_text}");
-                msg.lang = "ko-KR";
-                msg.rate = 1.0;
-                msg.pitch = 1.0;
-                window.speechSynthesis.speak(msg);
-                </script>
-                """,
-                height=0
-            )
-
-        else:
-            
-            st.error(f"응답 오류: {chat_data}")
-            st.stop()
 
             
-            st.write("### 😊 감정 분석")
-            st.json(
-                chat_data["emotion_analysis"]
+    st.write("### 😊 감정 분석")
+    st.json(
+            chat_data["emotion_analysis"]
             )
 # ==========================================
 # TAB 2
