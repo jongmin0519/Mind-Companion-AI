@@ -148,6 +148,8 @@ with tab1:
         chat_data = response.json()
 
         st.write("### 🤖 AI 응답")
+        
+        st.write(chat_data)
 
         st.success(
             chat_data["ai_response"]
