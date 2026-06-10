@@ -83,7 +83,7 @@ if data["count"] > 0:
         "date"
     )
 
-    latest = df.iloc[-1]
+    latest = df.iloc[1]
 
 else:
 
