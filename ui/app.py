@@ -189,12 +189,7 @@ with tab1:
             )
 
             tts_text = chat_data["ai_response"]
-
-        else:
             
-            st.error(f"응답 오류: {chat_data}")
-            st.stop()
-
             components.html(
                 f"""
                 <script>
@@ -207,6 +202,13 @@ with tab1:
                 """,
                 height=0
             )
+
+        else:
+            
+            st.error(f"응답 오류: {chat_data}")
+            st.stop()
+
+            
             st.write("### 😊 감정 분석")
 
             st.json(
