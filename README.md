@@ -24,3 +24,5 @@
 
 ## 서비스 링크
 https://mind-companion-ai-6xzze6vsohwyekdx55o4ad.streamlit.app/
+
+※ 본 서비스는 무료 클라우드(Render)를 사용하고 있어 일정 시간 미사용 시 절전 상태로 전환됩니다. 최초 접속 시 서버가 다시 시작되면서 30~60초 정도 소요될 수 있습니다.
