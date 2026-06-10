@@ -182,10 +182,8 @@ with tab1:
 
             st.write("### 🤖 AI 응답")
 
-            if "ai_response" in chat_data:
-
-                st.success(
-                    chat_data["ai_response"]
+            st.success(
+                chat_data["ai_response"]
             )
 
             tts_text = chat_data["ai_response"]
@@ -210,7 +208,6 @@ with tab1:
 
             
             st.write("### 😊 감정 분석")
-
             st.json(
                 chat_data["emotion_analysis"]
             )
