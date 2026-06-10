@@ -220,11 +220,12 @@ def chat(message: str):
 
         save_emotion_log(
             user_message=message,
-            happy=emotion_result["happy"],
-            stable=emotion_result["stable"],
-            lonely=emotion_result["lonely"],
-            anxiety=emotion_result["anxiety"],
-            depressed=emotion_result["depressed"],
+
+            happy=emotion_result.get("happy", 0),
+            stable=emotion_result.get("stable", 0),
+            lonely=emotion_result.get("lonely", 0),
+            anxiety=emotion_result.get("anxiety", 0),
+            depressed=emotion_result.get("depressed", 0),
             ai_response=ai_response
         )
 
