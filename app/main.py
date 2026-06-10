@@ -215,7 +215,7 @@ def chat(message: str):
     try:
 
         emotion_result = analyze_emotion(message)
-
+        print("감정분석 결과:", emotion_result)
         ai_response = generate_response(message)
 
         save_emotion_log(
