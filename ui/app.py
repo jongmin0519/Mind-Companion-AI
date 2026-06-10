@@ -178,15 +178,22 @@ with tab1:
 
             chat_data = response.json()
 
-            
+            st.write("응답 데이터:", chat_data)
 
             st.write("### 🤖 AI 응답")
 
-            st.success(
-                chat_data["ai_response"]
+            if "ai_response" in chat_data:
+
+                st.success(
+                    chat_data["ai_response"]
             )
 
             tts_text = chat_data["ai_response"]
+
+        else:
+            
+            st.error(f"응답 오류: {chat_data}")
+            st.stop()
 
             components.html(
                 f"""
