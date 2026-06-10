@@ -154,7 +154,20 @@ with tab1:
         st.success(
             chat_data["ai_response"]
         )
-    
+        tts_text = chat_data["ai_response"]
+
+        components.html(
+            f"""
+            <script>
+            var msg = new SpeechSynthesisUtterance("{tts_text}");
+            msg.lang = "ko-KR";
+            msg.rate = 1.0;
+            msg.pitch = 1.0;
+            window.speechSynthesis.speak(msg);
+            </script>
+            """,
+            height=0
+    )
                 
     user_input = st.text_input(
         "오늘 어떤 하루를 보내셨나요?"
